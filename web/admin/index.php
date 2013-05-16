@@ -8,6 +8,7 @@ include('../includes/config.php');
 	
 	<script type="text/javascript" src='/js/jquery-1.9.1.min.js'></script>
 	<script type="text/javascript" src='/js/jquery-ui.js'></script>
+	<script type="text/javascript" src='/js/jquery.validate.min.js'></script>
 
 	<link rel="stylesheet" href="/css/jquery-ui.css">
 	
@@ -21,6 +22,14 @@ include('../includes/config.php');
 	  	#current_devices { list-style-type: none; margin: 0; padding: 0; width: 60%; }
 	  	#current_devices li { margin: 3px; padding: 2px; font-size: 1em; height: 40px;}
 	  	#current_devices em { font-size: .8em;}
+
+	  	input { width: 200px; }
+	  	select { width: 200px;}
+	  	label { width: 200px; float: left; }
+		label.error { float: none; color: red; padding-left: .5em; vertical-align: top; }
+		p { clear: both; }
+		.submit { margin-left: 12em; }
+		em { font-weight: bold; padding-right: 1em; vertical-align: top; }
 	</style>
 
 	<script>
@@ -115,7 +124,7 @@ include('../includes/config.php');
 
   	function addDevice() {
 
-
+  		$('#addNewDeviceForm').submit();
 
   	}
 
@@ -178,7 +187,13 @@ include('../includes/config.php');
 	$(function() {
 		update_page();
 
+
+
 	});
+
+	$(document).ready(function(){
+    	$("#addNewDeviceForm").validate();
+  	});
 
   </script>
 
@@ -198,15 +213,15 @@ include('../includes/config.php');
 				<div id='addNewDeviceDiv' style='display: none'>
 					<h3>Add a new Device</h3>
 					<fieldset>
-						<form>
+						<form id='addNewDeviceForm'>
 							<label>Name attached to the device</label><br/>
-							<input type='text' id='addDevice_name'><br/><br/>
+							<input type='text' id='addDevice_name' name='addDevice_name' class='required'><br/><br/>
 							<label>Username</label><br/>
-							<input type='text' id='addDevice_username'><br/><br/>
+							<input type='text' id='addDevice_username' name='addDevice_username' class='required'><br/><br/>
 							<label>Avatar</label><br/>
-							<input type='text' id='addDevice_avatar'><br/><br/>
-	 						<select id='addNewDeviceSelect'>
-								<option id=''>Select Device...</option>
+							<input type='text' id='addDevice_avatar' name='addDevice_avatar' class='required'><br/><br/>
+	 						<select id='addNewDeviceSelect' name='addNewDeviceSelect' class='required'>
+								<option value='' >Select Device...</option>
 							</select><br/><br/>
 							<button onClick='addDevice(); return false;'>Add User to the Board</button>
 						</form>
