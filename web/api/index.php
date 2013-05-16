@@ -9,6 +9,39 @@ if(!isset($_GET['key']) || $_GET['key'] != $config['apikey']) {
 
 }
 
+
+
+
+if(isset($_GET['bluetooth_scan'])) {
+
+	//Sample output
+	$output = 'Scanning ...
+	00:26:4A:9E:3F:C8	cias-cms13
+	00:1F:F3:B0:F9:68	cias-it06
+	00:1E:52:EF:18:15	cias-cms04
+	00:26:4A:9B:FF:BC	Bradley’s Mac Pro
+	38:0A:94:B1:31:6E	Galaxy Nexus
+	';
+
+	$cmd = 'hcitool scan';
+
+	$matches = preg_split('/\n/', $output);
+
+	unset($matches[0]);
+	unset($matches[count($matches)]);
+
+	foreach($matches as $line) {
+
+			$line_split = preg_split('/\t/',$line);
+
+			$devices[] = array("address"=>$line_split[1],"devicename"=>$line_split[2]);
+	
+	}
+
+	echo json_encode($devices); 
+	exit();
+}
+
 if(isset($_GET['service_should_run'])) {
 
 	if($_GET['service_should_run'] == 'true') {
@@ -25,9 +58,6 @@ if(isset($_GET['service_should_run'])) {
 }
 
 if(isset($_GET['config'])) {
-
-	
-
 
 	if(isset($config['users'])) {
 		foreach($config['users'] as $user=>$value) {
@@ -85,7 +115,6 @@ if(isset($_GET['users'])) {
 		
 		$results = mysql_query($sql);
 
-
 		$myrow = mysql_fetch_array($results);
 		
 		if(empty($myrow)) {
@@ -100,7 +129,6 @@ if(isset($_GET['users'])) {
 		$returnarr[$u]['bluetooth'] = $matches[2];
 		$returnarr[$u]['name'] = $matches[1];
 		$returnarr[$u]['avatar'] = $matches[3];
-
 
  	}
 

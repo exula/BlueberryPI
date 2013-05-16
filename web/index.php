@@ -5,19 +5,12 @@
 	
 
 
-	<script src="/jquery-1.9.1.min.js"></script>
-	<script src="/timeago.js" type="text/javascript"></script>
-	<link rel="stylesheet" type="text/css" href="/style.css">
+	<script src="/js/jquery-1.9.1.min.js"></script>
+	<script src="/js/timeago.js" type="text/javascript"></script>
+	<link rel="stylesheet" type="text/css" href="/css/style.css">
 	<script>
 
 		function create_user(data) {
-
-			//<li><div><img src='https://request.cias.rit.edu/avatar.php?username=rrhpph'></div><div id='rrhpph_name' class='name'>Robert Henderson<br/><span id='rrhpph_ago' class='subtext'>Last seen: Today 2:05pm</span></div><div id='rrhpph_in' class='buttons vacation'>LOADING</div></li>
-
-			console.log(data);
-
-
-			username = 
 
 			li = document.createElement("LI");
 				div1= document.createElement("DIV");
@@ -62,7 +55,7 @@
 				if(origstatus == data ) {
 					return false;
 				} else {
-					//console.log("Updating screen");
+					
 				}
 
 				origstatus = data;
@@ -126,10 +119,10 @@
 
 <div id='powered' style='color: white; position: absolute; bottom: 0px'>
 Powered By: 
-<img height='51' src='http://cias.rit.edu/ciastechadmin/raspberry.gif'>
-<img height='51' src='http://cias.rit.edu/ciastechadmin/php.gif'>
-<img height='51' src='http://cias.rit.edu/ciastechadmin/mysql.png'>
-<img height='51' src='http://cias.rit.edu/ciastechadmin/gnu.png'>
-<img height='51' src='http://cias.rit.edu/ciastechadmin/bluetooth_logo.png'>
+<img height='51' src='/images/raspberry.gif'>
+<img height='51' src='/images/php.gif'>
+<img height='51' src='/images/mysql.png'>
+<img height='51' src='/images/gnu.png'>
+<img height='51' src='/images/bluetooth_logo.png'>
 </div>
 </html>
