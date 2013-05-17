@@ -10,8 +10,6 @@ if(!isset($_GET['key']) || $_GET['key'] != $config['apikey']) {
 }
 
 
-
-
 if(isset($_GET['bluetooth_scan'])) {
 
 	//Sample output

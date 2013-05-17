@@ -17,6 +17,9 @@ include('../includes/config.php');
 		font-family: "Trebuchet MS", "Helvetica", "Arial",  "Verdana", "sans-serif";
 		font-size: 12px;
 	}
+
+		#accordion { width: 700px}
+
 		#current_devices .ui-selecting { background: #FECA40; }
 	  	#current_devices .ui-selected { background: #F39814; color: white; }
 	  	#current_devices { list-style-type: none; margin: 0; padding: 0; width: 60%; }
@@ -102,22 +105,24 @@ include('../includes/config.php');
 
   	}
 
-  	function removeDevice() {
+  	function removeDevice(data) {
+
+  		console.log(data);
 
   		$(function() {
-	    $( "#dialog-confirm" ).dialog({
-	      resizable: false,
-	      height:200,
-	      modal: true,
-	      buttons: {
-	        "Delete all items": function() {
-	          $( this ).dialog( "close" );
-	        },
-	        Cancel: function() {
-	          $( this ).dialog( "close" );
-	        }
-	      }
-	    });
+		    $( "#dialog-confirm" ).dialog({
+		      resizable: false,
+		      height:200,
+		      modal: true,
+		      buttons: {
+		        "Delete all items": function() {
+		          $( this ).dialog( "close" );
+		        },
+		        Cancel: function() {
+		          $( this ).dialog( "close" );
+		        }
+		      }
+		    });
   	});
 
   	}
@@ -141,14 +146,14 @@ include('../includes/config.php');
 				user_li.id =  user_li_id;
 
 				user_li.innerHTML = "<img height='40' style='float: left' src='"+data.users[i].avatar+"'>"+data.users[i].name+"<br><em>Bluetooth: "+data.users[i].bluetooth+"</em>";
-				user_li.innerHTML += "<a href='#' onClick='removeDevice(this); return false;' style='float: right'>Remove Device</a>";
+				user_li.innerHTML += "<a href='#' id='remove_"+data.users[i].username+"' onClick='removeDevice(this); return false;' style='float: right'>Remove Device</a>";
 				user_li.className = 'ui-widget-content';
 
 				$('#current_devices').append(user_li);
 				added_users.push(data.users[i].username);
-				console.log('added');
+				
 			} else {
-				console.log('update');
+				
 			}
 			
 		};
@@ -200,6 +205,8 @@ include('../includes/config.php');
 </head>
 <body>
 
+	<h1>IN/OUT Board Admin Interface</h1>
+
 	<div id="dialog-confirm" title="Remove this device?" style='display: none'>
   		<p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>These items will be permanently deleted and cannot be recovered. Are you sure?</p>
 	</div>
@@ -238,7 +245,7 @@ include('../includes/config.php');
 		<h3>Manage Service</h3>
 			<div>
 				<input type='checkbox' id='service_should_run' /><label for='service_should_run'>Toogle Bluetooth Service</label>
-				<br/>
+				<br/><br/>
 				<strong>Service is <span id='service_status'>...</span></strong><br/>
 				<strong>Current Service Status: <span id='service_running'></span></strong>
 
