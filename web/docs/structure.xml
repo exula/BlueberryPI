@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project version="2.0.0a12" title="">
+  <file path="api/index.php" hash="a94b64d93036170c01979ace0b6f9d50" package="Default">
+    <include line="2" type="Include" package="Default">
+      <name>../library/base.php</name>
+    </include>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file api/index.php</error>
+    </parse_markers>
+  </file>
+  <file path="includes/config.php" hash="d41d8cd98f00b204e9800998ecf8427e" package="Default">
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file includes/config.php</error>
+    </parse_markers>
+  </file>
+  <file path="index.php" hash="bcb2af2be93da17b719065e4fc6784a6" package="Default">
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file index.php</error>
+    </parse_markers>
+  </file>
+  <file path="admin/index.php" hash="ff61d0605ac08cdc1f57c94241743b22" package="Default">
+    <include line="2" type="Include" package="Default">
+      <name>../library/base.php</name>
+    </include>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file admin/index.php</error>
+    </parse_markers>
+  </file>
+  <file path="library/base.php" hash="3b8e1b2846bd625aeb2d99bff7e8c85a" package="Default">
+    <include line="71" type="Require" package="Default">
+      <name/>
+    </include>
+    <include line="210" type="Require" package="Default">
+      <name/>
+    </include>
+    <function namespace="global" line="55" package="Default">
+      <name>autoload</name>
+      <full_name>\autoload</full_name>
+      <argument line="55">
+        <name>$className</name>
+        <default/>
+        <type/>
+      </argument>
+    </function>
+    <class final="false" abstract="false" namespace="global" line="97" package="Default">
+      <extends/>
+      <name>SplClassLoader</name>
+      <full_name>\SplClassLoader</full_name>
+      <docblock line="80">
+        <description>SplClassLoader implementation that implements the technical interoperability
+standards for PHP 5.3 namespaces and class names.</description>
+        <long-description>&lt;p&gt;http://groups.google.com/group/php-standards/web/final-proposal&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// Example which loads classes for the Doctrine Common package in the
+// Doctrine\Common namespace.
+$classLoader = new SplClassLoader('Doctrine\Common', '/path/to/doctrine');
+$classLoader-&amp;gt;register();
+&lt;/code&gt;&lt;/pre&gt;</long-description>
+        <tag line="80" name="author" description="Jonathan H. Wage &lt;jonwage@gmail.com&gt;"/>
+        <tag line="80" name="author" description="Roman S. Borschel &lt;roman@code-factory.org&gt;"/>
+        <tag line="80" name="author" description="Matthew Weier O'Phinney &lt;matthew@zend.com&gt;"/>
+        <tag line="80" name="author" description="Kris Wallsmith &lt;kris.wallsmith@gmail.com&gt;"/>
+        <tag line="80" name="author" description="Fabien Potencier &lt;fabien.potencier@symfony-project.org&gt;"/>
+      </docblock>
+      <property final="false" static="false" visibility="private" line="99" namespace="global" package="Default">
+        <name>$_fileExtension</name>
+        <default>'.php'</default>
+      </property>
+      <property final="false" static="false" visibility="private" line="100" namespace="global" package="Default">
+        <name>$_namespace</name>
+        <default/>
+      </property>
+      <property final="false" static="false" visibility="private" line="101" namespace="global" package="Default">
+        <name>$_includePath</name>
+        <default/>
+      </property>
+      <property final="false" static="false" visibility="private" line="102" namespace="global" package="Default">
+        <name>$_namespaceSeparator</name>
+        <default>'\\'</default>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="110" package="Default">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+        <docblock line="104">
+          <description>Creates a new &lt;tt&gt;SplClassLoader&lt;/tt&gt; that loads classes of the
+specified namespace.</description>
+          <long-description/>
+          <tag line="104" name="param" description="The namespace to use." type="string" variable="$ns">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="110">
+          <name>$ns</name>
+          <default>null</default>
+          <type/>
+        </argument>
+        <argument line="110">
+          <name>$includePath</name>
+          <default>null</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="121" package="Default">
+        <name>setNamespaceSeparator</name>
+        <full_name>setNamespaceSeparator</full_name>
+        <docblock line="116">
+          <description>Sets the namespace separator used by classes in the namespace of this class loader.</description>
+          <long-description/>
+          <tag line="116" name="param" description="The separator to use." type="string" variable="$sep">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="121">
+          <name>$sep</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="131" package="Default">
+        <name>getNamespaceSeparator</name>
+        <full_name>getNamespaceSeparator</full_name>
+        <docblock line="126">
+          <description>Gets the namespace seperator used by classes in the namespace of this class loader.</description>
+          <long-description/>
+          <tag line="126" name="return" description="" type="void">
+            <type by_reference="false">void</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="141" package="Default">
+        <name>setIncludePath</name>
+        <full_name>setIncludePath</full_name>
+        <docblock line="136">
+          <description>Sets the base include path for all class files in the namespace of this class loader.</description>
+          <long-description/>
+          <tag line="136" name="param" description="" type="string" variable="$includePath">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="141">
+          <name>$includePath</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="151" package="Default">
+        <name>getIncludePath</name>
+        <full_name>getIncludePath</full_name>
+        <docblock line="146">
+          <description>Gets the base include path for all class files in the namespace of this class loader.</description>
+          <long-description/>
+          <tag line="146" name="return" description="$includePath" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="161" package="Default">
+        <name>setFileExtension</name>
+        <full_name>setFileExtension</full_name>
+        <docblock line="156">
+          <description>Sets the file extension of class files in the namespace of this class loader.</description>
+          <long-description/>
+          <tag line="156" name="param" description="" type="string" variable="$fileExtension">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="161">
+          <name>$fileExtension</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="171" package="Default">
+        <name>getFileExtension</name>
+        <full_name>getFileExtension</full_name>
+        <docblock line="166">
+          <description>Gets the file extension of class files in the namespace of this class loader.</description>
+          <long-description/>
+          <tag line="166" name="return" description="$fileExtension" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="179" package="Default">
+        <name>register</name>
+        <full_name>register</full_name>
+        <docblock line="176">
+          <description>Installs this class loader on the SPL autoload stack.</description>
+          <long-description/>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="187" package="Default">
+        <name>unregister</name>
+        <full_name>unregister</full_name>
+        <docblock line="184">
+          <description>Uninstalls this class loader from the SPL autoloader stack.</description>
+          <long-description/>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="198" package="Default">
+        <name>loadClass</name>
+        <full_name>loadClass</full_name>
+        <docblock line="192">
+          <description>Loads the given class or interface.</description>
+          <long-description/>
+          <tag line="192" name="param" description="The name of the class to load." type="string" variable="$className">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="192" name="return" description="" type="void">
+            <type by_reference="false">void</type>
+          </tag>
+        </docblock>
+        <argument line="198">
+          <name>$className</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file library/base.php</error>
+      <error line="55" code="50009">No DocBlock was found for function \autoload()</error>
+      <error line="99" code="50018">No DocBlock was found for property $_fileExtension</error>
+      <error line="100" code="50018">No DocBlock was found for property $_namespace</error>
+      <error line="101" code="50018">No DocBlock was found for property $_includePath</error>
+      <error line="102" code="50018">No DocBlock was found for property $_namespaceSeparator</error>
+      <error line="104" code="50015">Argument $includePath is missing from the Docblock of __construct()</error>
+    </parse_markers>
+  </file>
+  <file path="library/Application/API.php" hash="b8df58e351466fd6818210dfb277f00e" package="Default">
+    <class final="false" abstract="false" namespace="global" line="6" package="Default">
+      <extends/>
+      <name>API</name>
+      <full_name>\API</full_name>
+      <docblock line="3">
+        <description>$_GET based API Class to manage all the admin and frontend work</description>
+        <long-description/>
+      </docblock>
+      <property final="false" static="false" visibility="protected" line="8" namespace="global" package="Default">
+        <name>$config</name>
+        <default/>
+      </property>
+      <property final="false" static="false" visibility="protected" line="9" namespace="global" package="Default">
+        <name>$dbh</name>
+        <default/>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="11" package="Default">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+        <argument line="11">
+          <name>$_dbh</name>
+          <default/>
+          <type>\PDO</type>
+        </argument>
+        <argument line="11">
+          <name>$_config</name>
+          <default/>
+          <type>\Config</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="20" package="Default">
+        <name>bluetooth_scan</name>
+        <full_name>bluetooth_scan</full_name>
+        <docblock line="16">
+          <description>Return the results of a bluetooth scan of the system</description>
+          <long-description/>
+          <tag line="16" name="return" description="always returns true" type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="54" package="Default">
+        <name>serviceShouldRun</name>
+        <full_name>serviceShouldRun</full_name>
+        <docblock line="50">
+          <description>Ask the database weather the service should be running, this is a simple config values</description>
+          <long-description/>
+          <tag line="50" name="return" description="true" type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="72" package="Default">
+        <name>getConfig</name>
+        <full_name>getConfig</full_name>
+        <docblock line="68">
+          <description>Return the configuration of the system for the web pages</description>
+          <long-description/>
+          <tag line="68" name="return" description="true" type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="105" package="Default">
+        <name>service</name>
+        <full_name>service</full_name>
+        <docblock line="101">
+          <description>Ask the system if the service is running, this values is set by the services that run on the RaspberryPI's</description>
+          <long-description/>
+          <tag line="101" name="return" description="true" type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="115" package="Default">
+        <name>updateDeviceStatus</name>
+        <full_name>updateDeviceStatus</full_name>
+        <docblock line="111">
+          <description>This allows the system to update the status of a user's device from the service that runs.</description>
+          <long-description/>
+          <tag line="111" name="return" description="true" type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="143" package="Default">
+        <name>getUserDevices</name>
+        <full_name>getUserDevices</full_name>
+        <docblock line="139">
+          <description>Return all the devices</description>
+          <long-description/>
+          <tag line="139" name="return" description="true" type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+        </docblock>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file library/Application/API.php</error>
+      <error line="8" code="50018">No DocBlock was found for property $config</error>
+      <error line="9" code="50018">No DocBlock was found for property $dbh</error>
+      <error line="11" code="50010">No DocBlock was found for method __construct()</error>
+    </parse_markers>
+  </file>
+  <file path="library/Application/Config.php" hash="1ce9f8d3c4dcdeb4e04902a3fab44915" package="Default">
+    <class final="false" abstract="false" namespace="global" line="5" package="Default">
+      <extends/>
+      <name>Config</name>
+      <full_name>\Config</full_name>
+      <docblock line="2">
+        <description>Main Config class for our Application</description>
+        <long-description/>
+      </docblock>
+      <property final="false" static="false" visibility="protected" line="7" namespace="global" package="Default">
+        <name>$dbh</name>
+        <default/>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="10" package="Default">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+        <argument line="10">
+          <name>$_dbh</name>
+          <default/>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="22" package="Default">
+        <name>getConfig</name>
+        <full_name>getConfig</full_name>
+        <docblock line="17">
+          <description>Populate the object with the configuration values from the database.</description>
+          <long-description>&lt;p&gt;Config values will be saved in public
+Property of this object&lt;/p&gt;</long-description>
+          <tag line="17" name="return" description="" type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="64" package="Default">
+        <name>save_config</name>
+        <full_name>save_config</full_name>
+        <docblock line="58">
+          <description>Save this object's config values back to the database.</description>
+          <long-description>&lt;p&gt;The database will be locked so we don't have
+race conditions of different procceses writing out the config&lt;/p&gt;</long-description>
+          <tag line="58" name="param" description="" type="\PDOObject" variable="$dbh">
+            <type by_reference="false">\PDOObject</type>
+          </tag>
+          <tag line="58" name="return" description="" type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+        </docblock>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file library/Application/Config.php</error>
+      <error line="7" code="50018">No DocBlock was found for property $dbh</error>
+      <error line="10" code="50010">No DocBlock was found for method __construct()</error>
+      <notice line="58" code="50013">Parameter $dbh could not be found in save_config()</notice>
+    </parse_markers>
+  </file>
+  <package name="Default" full_name="Default"/>
+  <namespace name="global" full_name="global"/>
+  <marker count="0">todo</marker>
+  <marker count="0">fixme</marker>
+  <deprecated count="0"/>
+</project>
