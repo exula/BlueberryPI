@@ -10,3 +10,5 @@ ln -fs /vagrant/web/ /var/www
 
 #Config the Databse
 mysql -u root -proot < /vagrant/helpers/bluetoothtable.sql
+
+service apache2 reload

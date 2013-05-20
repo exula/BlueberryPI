@@ -212,6 +212,7 @@ include('../library/base.php');
 	<div id="accordion">
 		<h3>Manage Devices</h3>
 			<div>
+				Current API Key: <?=$config->values['apikey'];?>
 				<div>
 					<ol id='current_devices'></ol>
 				</div>

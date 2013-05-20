@@ -1,7 +1,7 @@
 <?php
 //Put API key from admin interface here
 $apikey = 'aa625902eebedb7cf4fe100ada98996e';
-$URL = 'http://cias-rasppi1.rit.edu/api/';
+$URL = 'http://localhost/api/';
 //
 
 ###############################################
@@ -39,6 +39,7 @@ function isLocked()
 
 $contents = file_get_contents($URL."?users=true&key=$apikey");
 
+
 $users = json_decode($contents,TRUE);
 
 if($users['service_should_run'] == 0) {
@@ -52,7 +53,6 @@ if($users['service_should_run'] == 0) {
 	#exit("service restarting to run again");
 }
 
-//$bt_people = array("dmax"=>"BC:0D:A5:3A:E4:B9","rsfpgd"=>"40:B3:95:6F:98:9F","rrhpph"=>"54:26:96:35:F6:A4","jpspgd"=>"0C:71:5D:FC:B7:31","bjcpgd"=>"38:0A:94:B1:31:6E");
 $z = 1;
 $sleep = 15;
 $holding_array = array();
@@ -60,7 +60,7 @@ $holding_array = array();
 while(true) {
 	foreach($users['userlist'] as $user) {
 		
-		$a = $users[$user]['bluetooth'];
+		$a = $users['users'][$user]['bluetooth'];
 		$u = $user;
 		$cmd = "l2ping -s 1 -c 2 -t 2 $a > /dev/null  ; echo $?";
 		//echo $cmd."\n";
@@ -85,7 +85,10 @@ while(true) {
 			}
 		}
 		
+
+
 		$retval = json_decode($return,true);
+
 
 		if($retval['service_should_run'] == 0) {
 			unlink( LOCK_FILE );
@@ -99,7 +102,6 @@ sleep($sleep);
 $config = file_get_contents($URL."?config=true&key=".$apikey);
 
 $config = json_decode($config,true);
-
 
 
 if($config['service_should_run'] == 0) {

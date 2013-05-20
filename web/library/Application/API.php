@@ -116,7 +116,7 @@ class API{
 
 		//Update status of a bluetooth address
 		
-		$sql = "INSERT into bluetooth VALUES('',:username,:bt,'".time()."',:status)";
+		$sql = "INSERT into bluetooth VALUES('',:username,:bt,'".time()."',:status,'master')";
 		
 		$username = filter_var($_GET['username'],FILTER_SANITIZE_STRING);
 		$bt = filter_var($_GET['bt'],FILTER_SANITIZE_STRING);
