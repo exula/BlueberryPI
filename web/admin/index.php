@@ -1,5 +1,5 @@
 <?php
-include('../includes/config.php');
+include('../library/base.php');
 ?>
 <html lang="en">
 <head>
@@ -38,7 +38,7 @@ include('../includes/config.php');
 	<script>
 
 
-	var apikey = '<?=$config['apikey']?>';
+	var apikey = '<?=$config->values['apikey']?>';
 	var config;
 
 	  $(function() {
@@ -47,13 +47,13 @@ include('../includes/config.php');
 	    });
 	  });
 
-	  $(function() {
-    $( "button:first" ).button({
-      icons: {
-        primary: "ui-icon-locked"
-      },
-      text: true
-    })
+	$(function() {
+	    $( "button:first" ).button({
+	      icons: {
+	        primary: "ui-icon-locked"
+	      },
+	      text: true
+	    })
   	});
 
 	$(function() {
@@ -106,8 +106,6 @@ include('../includes/config.php');
   	}
 
   	function removeDevice(data) {
-
-  		console.log(data);
 
   		$(function() {
 		    $( "#dialog-confirm" ).dialog({

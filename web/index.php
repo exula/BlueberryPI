@@ -12,6 +12,8 @@
 
 		function create_user(data) {
 
+			console.log(data);
+
 			li = document.createElement("LI");
 				div1= document.createElement("DIV");
 					
@@ -51,7 +53,6 @@
 			  data: "users=true&key=aa625902eebedb7cf4fe100ada98996e",
 			  success: function(data) {
 				
-				
 				if(origstatus == data ) {
 					return false;
 				} else {
@@ -61,23 +62,22 @@
 				origstatus = data;
 				
 				var obj = data;
-		
 
 				for (var i = obj.userlist.length - 1; i >= 0; i--) {
 
 					thisName = obj.userlist[i];
 
-					
 					if($('#'+thisName+'_name').length == 0) {
-					 	create_user(obj[thisName]);
+						create_user(obj.users[thisName]);
 					}
-
+					
 					$('#'+thisName+'_name').removeClass();
-					$('#'+thisName+'_name').addClass('name_'+obj[thisName].status);							
-					$('#'+thisName+'_in').html(obj[thisName].status);
+					$('#'+thisName+'_name').addClass('name_'+obj.users[thisName].status);							
+					$('#'+thisName+'_in').html(obj.users[thisName].status);
 					$('#'+thisName+'_in').removeClass();
-					$('#'+thisName+'_in').addClass('buttons '+obj[thisName].status);
-					$('#'+thisName+'_ago').html("Last update: "+jQuery.timeago(obj[thisName].lastseen));
+					$('#'+thisName+'_in').addClass('buttons '+obj.users[thisName].status);
+					$('#'+thisName+'_ago').html("Last update: "+jQuery.timeago(obj.users[thisName].lastseen));
+					
 				};
 
 				}
