@@ -55,7 +55,7 @@ try {
 function autoload($className)
 {
 
-	$className = 'Application\\'.$className;
+	$className = '\\'.$className;
 
 	$className = ltrim($className, '\\');
 	$fileName  = '';
@@ -75,7 +75,7 @@ function autoload($className)
 
 spl_autoload_register('autoload');
 
-$config = new Config($dbh);
+$config = new Application\Config($dbh);
 
 /**
  * SplClassLoader implementation that implements the technical interoperability

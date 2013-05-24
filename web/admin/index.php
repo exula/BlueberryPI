@@ -1,4 +1,7 @@
 <?php
+/**
+ * Admin Interface
+ */
 include('../library/base.php');
 ?>
 <html lang="en">
@@ -38,7 +41,7 @@ include('../library/base.php');
 	<script>
 
 
-	var apikey = '<?=$config->values['apikey']?>';
+	var apikey = '<?php echo $config->values['apikey']?>';
 	var config;
 
 	  $(function() {
@@ -143,8 +146,11 @@ include('../library/base.php');
 				user_li = document.createElement("LI");
 				user_li.id =  user_li_id;
 
-				user_li.innerHTML = "<img height='40' style='float: left' src='"+data.users[i].avatar+"'>"+data.users[i].name+"<br><em>Bluetooth: "+data.users[i].bluetooth+"</em>";
-				user_li.innerHTML += "<a href='#' id='remove_"+data.users[i].username+"' onClick='removeDevice(this); return false;' style='float: right'>Remove Device</a>";
+				user_li.innerHTML = "<img height='40' style='float: left' src='"+
+									data.users[i].avatar+"'>"+
+									data.users[i].name+"<br><em>Bluetooth: "+data.users[i].bluetooth+"</em>";
+				user_li.innerHTML += "<a href='#' id='remove_"+
+							data.users[i].username+"' onClick='removeDevice(this); return false;' style='float: right'>Remove Device</a>";
 				user_li.className = 'ui-widget-content';
 
 				$('#current_devices').append(user_li);
@@ -206,13 +212,14 @@ include('../library/base.php');
 	<h1>IN/OUT Board Admin Interface</h1>
 
 	<div id="dialog-confirm" title="Remove this device?" style='display: none'>
-  		<p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>These items will be permanently deleted and cannot be recovered. Are you sure?</p>
+  		<p><span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;">
+  		</span>These items will be permanently deleted and cannot be recovered. Are you sure?</p>
 	</div>
 
 	<div id="accordion">
 		<h3>Manage Devices</h3>
 			<div>
-				Current API Key: <?=$config->values['apikey'];?>
+				Current API Key: <?php echo $config->values['apikey'];?>
 				<div>
 					<ol id='current_devices'></ol>
 				</div>
