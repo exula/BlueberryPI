@@ -10,4 +10,4 @@ In the future I will make the development enviroment fake Bluetooth better so yo
 
     vagrant up
 
- will start your development enviroment and you can get to it at the frontend at http://localhost:8080/ and the admin at http://localhost:8080/
+ will start your development enviroment and you can get to it at the frontend at http://localhost:8080/ and the admin at http://localhost:8080/ 
