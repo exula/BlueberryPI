@@ -53,6 +53,30 @@ $output = 'Scanning ...
         return true;
     }
 
+
+    /**
+     * Update config with frontend options
+     * @return bool true
+     */
+    function frontEndConfig() {
+        
+        print_r($_POST);
+
+        $heading = filter_var($_GET['heading'],FILTER_SANITIZE_STRING);
+        $subheading = filter_var($_GET['subheading'],FILTER_SANITIZE_STRING);
+        $sidebar = $_POST['sidebar'];
+       
+        $this->config->values['heading'] = $heading;
+        $this->config->values['subheading'] = $subheading;
+        $this->config->values['sidebar'] = $sidebar;
+
+        $this->config->save_config();
+
+        $this->getConfig();
+
+    }
+
+
     /**
      * Ask the database weather the service should be running, this is a simple config values
      * @return bool true
@@ -220,6 +244,10 @@ $output = 'Scanning ...
 
          $returnarr['userlist'] = array_keys($returnarr['users']);
          $returnarr['service_should_run'] = $this->config->values['service_should_run'];
+
+         $returnarr['heading'] = $this->config->values['heading'];
+         $returnarr['subheading'] = $this->config->values['subheading'];
+         $returnarr['sidebar'] = $this->config->values['sidebar'];
 
         echo json_encode($returnarr);
         $this->config->save_config();

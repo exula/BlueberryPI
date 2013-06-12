@@ -1,7 +1,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
-	<title>CIASTech In/Out Board</title>
+	<title>In/Out Board</title>
 
 	<script src="/js/jquery-1.9.1.min.js"></script>
 	<script src="/js/timeago.js" type="text/javascript"></script>
@@ -60,6 +60,7 @@
 
 
 		origstatus = '';
+		var sidebarLoaded = false;
 		function refresh_status() {
 			$.ajax({
 			  url: "/api/",
@@ -84,6 +85,22 @@
 				
 				var obj = data;
 
+
+				//Update the site
+				html = "<strong>"+obj.heading+"</strong><br/>"+obj.subheading;
+				$('#header').html(html);
+
+				if(sidebarLoaded == false) {
+
+					sidebar = obj.sidebar;
+
+					$('#sidebar').html(sidebar,function() {
+						$('#sidebar').eval();
+					});
+					sidebarLoaded = true;
+				}
+
+
 				for (var i = obj.userlist.length - 1; i >= 0; i--) {
 
 					thisName = obj.userlist[i];
@@ -98,7 +115,7 @@
 					$('#'+thisName+'_in').removeClass();
 					$('#'+thisName+'_in').addClass('buttons '+obj.users[thisName].status);
 					$('#'+thisName+'_ago').html("Last update: "+jQuery.timeago(obj.users[thisName].lastseen));
-					
+
 				};
 
 				}
@@ -112,26 +129,14 @@
 	<div id='error' style='display: none'></div>
 	<div id="main">
 		<div id="header">
-			<strong>ciastech</strong><br/>
-			in/out board
+			Loading...
 		</div>
 		
 		<div id="inout">
-			
-		
 		</div>
-		<div id="twitter_container">
-			<span id='twitter_header'>Twitter Feed</span>
-			<div id="twitter_content">
-
-				<a class="twitter-timeline" data-dnt="true" href="https://twitter.com/CIASTech" height=700 width=400 data-widget-id="311107084538232833">Tweets by @CIASTech</a>
-				<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-
-
+		<div id='sidebar'>
 			
-			</div>
 		</div>
-		
 	</div>
 	</body>
 	<script>

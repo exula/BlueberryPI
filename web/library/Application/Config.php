@@ -173,11 +173,14 @@ class Config
                         $statement->execute();
                     }
                 } else {
-                    $sql = "INSERT into config VALUES('',:name,:configvalue)";
+                    $sql = "INSERT into config VALUES('',:name,:configvalue,'1')";
                     
 
                     $statement = $this->dbh->prepare($sql);
-                    $statement->bindParam(":name",filter_var($name,FILTER_SANITIZE_STRING));
+
+                    $name = filter_var($name,FILTER_SANITIZE_STRING);
+
+                    $statement->bindParam(":name",$name);
                     $statement->bindParam(":configvalue",$config[$name]);
                     $statement->execute();
                 }

@@ -7,7 +7,7 @@ include('../library/base.php');
 <html lang="en">
 <head>
 	<meta charset="utf-8" />
-	<title>	In/Out Board Admin</title>
+	<title>In/Out Board Admin</title>
 	
 	<script type="text/javascript" src='/js/jquery-1.9.1.min.js'></script>
 	<script type="text/javascript" src='/js/jquery-ui.js'></script>
@@ -57,6 +57,14 @@ include('../library/base.php');
 	      },
 	      text: true
 	    })
+  	});
+
+  	$(function() {
+    $( "input[type=submit], a, button" )
+      .button()
+      .click(function( event ) {
+        event.preventDefault();
+      });
   	});
 
 	$(function() {
@@ -194,6 +202,7 @@ include('../library/base.php');
 		
 	}
 
+	var updateFrontEnd = true;
 	function update_page() {
 		$.ajax("/api/?config=true&key="+apikey).done(function(data) {
 			
@@ -212,6 +221,13 @@ include('../library/base.php');
 			}
 			$("#service_running")[0].innerHTML = service_running_html;
 
+			if ( updateFrontEnd == true ) {
+				$('#heading').val(data.heading);
+				$('#subheading').val(data.subheading);
+				$('#sidebar').val(data.sidebar);
+				updateFrontEnd = false;
+			}
+
 			update_users(data);
 
 		});
@@ -219,7 +235,21 @@ include('../library/base.php');
 		window.setTimeout("update_page()",5000);
 	}
 
-	
+	function frontEndConfig() {
+
+		heading    = $('#heading').val();
+		subheading = $('#subheading').val();
+		sidebar    = $('#sidebar').val();
+
+		$.ajax({
+			url: "/api/?frontEndConfig=true&heading="+heading+"&subheading="+subheading+"&key="+apikey,
+			type: "POST",
+			data: "sidebar="+sidebar
+			}).done( function(data) {
+			console.log(data);
+			});
+
+	}
 
 	$(function() {
 		update_page();
@@ -275,6 +305,25 @@ include('../library/base.php');
 					<a href='#' onClick='startAddDevice()'>Add New Device</a>
 				</div>
 			</div>
+		<h3>Frontend Config</h3>
+			<div>
+				<fieldset>
+					<form id='frontEndConfig'>
+						<label>Heading Text</label><br/>
+						<input type='text' id='heading' name='heading' value=''><br/>
+
+						<label>Sub Heading Text</label><br/>
+						<input type='text' id='subheading' name='subheading' value=''><br/>
+
+						<br/>
+						<label>Sidebar HTML</label><br/>
+						<textarea id='sidebar' name='sidebar' cols='60' rows='10'></textarea><br/>
+
+						<br/><br/>
+						<button onClick='frontEndConfig(); return false;'>Save Frontend Config</button>
+					</form>
+				</fieldset>
+			</div>
 
 		<h3>Manage Service</h3>
 			<div>
@@ -287,7 +336,8 @@ include('../library/base.php');
 
 		<h3>Manage RaspberryPI</h3>
 			<div>
-				hi
+				Nothing here yet.
+				I want to put some options to manange config files and startup options for the RaspberryPI.
 			</div>
 	</div>
 

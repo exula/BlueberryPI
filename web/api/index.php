@@ -27,7 +27,8 @@ $arrayMap = array(
     "update"=>"updateDeviceStatus",
     "users"=>"getUserDevices",
     "remove_device"=>"removeDevice",
-    "add_device"=>"addDevice"
+    "add_device"=>"addDevice",
+    "frontEndConfig"=>"frontEndConfig"
 );
 
 
