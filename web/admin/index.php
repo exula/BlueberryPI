@@ -108,6 +108,8 @@ include('../library/base.php');
 
   	}
 
+
+  	var removedDevice = '';
   	function removeDevice(data) {
 
   		$(function() {
@@ -116,8 +118,20 @@ include('../library/base.php');
 		      height:200,
 		      modal: true,
 		      buttons: {
-		        "Delete all items": function() {
+		        "Delete this item": function() {
 		          $( this ).dialog( "close" );
+		          removedDevice = data;
+		           $.ajax("/api/?remove_device="+data+"&key="+apikey).done(function(data) {
+
+
+		           		index = added_device.indexOf(removedDevice);
+		           		added_device.splice(index,1);
+		           		
+		           		$('#'+removedDevice+"_li").detach();
+
+		          	}
+		          );
+
 		        },
 		        Cancel: function() {
 		          $( this ).dialog( "close" );
@@ -130,18 +144,32 @@ include('../library/base.php');
 
   	function addDevice() {
 
-  		$('#addNewDeviceForm').submit();
+  		
+  		name = $('#addDevice_name')[0].value;
+  		username = $('#addDevice_username')[0].value;
+  		avatar = $('#addDevice_avatar')[0].value;
+  		address = $('#addNewDeviceSelect')[0].value;
+
+  		$.ajax('/api/?key='+apikey+"&add_device=true&name="+name+"&username="+username+"&avatar="+avatar+"&address="+address).done(function(data){
+  			
+  			update_users(data);
+  			endAddDevice();
+
+  		});
+
+
+  		return false;
 
   	}
 
-	var added_users = new Array();
+	var added_device = new Array();
 	function update_users(data) {
 
 		for (var i = data.users.length - 1; i >= 0; i--) {
 
-			if($.inArray(data.users[i].username,added_users) == -1) {
+			if($.inArray(data.users[i].bluetooth,added_device) == -1) {
 
-				user_li_id = data.users[i].name+"_li";
+				user_li_id = data.users[i].bluetooth+"_li";
 			
 				user_li = document.createElement("LI");
 				user_li.id =  user_li_id;
@@ -150,14 +178,14 @@ include('../library/base.php');
 									data.users[i].avatar+"'>"+
 									data.users[i].name+"<br><em>Bluetooth: "+data.users[i].bluetooth+"</em>";
 				user_li.innerHTML += "<a href='#' id='remove_"+
-							data.users[i].username+"' onClick='removeDevice(this); return false;' style='float: right'>Remove Device</a>";
+							data.users[i].username+"' onClick='removeDevice(\""+data.users[i].bluetooth+"\"); return false;' style='float: right'>Remove Device</a>";
 				user_li.className = 'ui-widget-content';
 
 				$('#current_devices').append(user_li);
-				added_users.push(data.users[i].username);
+				added_device.push(data.users[i].bluetooth);
 				
 			} else {
-				
+
 			}
 			
 		};

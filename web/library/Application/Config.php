@@ -7,6 +7,8 @@ class Config
 {
     protected $dbh;
 
+    public $mustBeArray = array('users');
+
     public function __construct($_dbh)
     {
         $this->dbh = $_dbh;
@@ -27,6 +29,13 @@ class Config
 
         //Create a config array. For items that have a single entry in the config table they are string values
         //Multiple items of a config name turn into an array
+
+        array_walk($this->mustBeArray, function($item,$key,&$parent) {
+            $parent->values[$item] = array();
+           
+        },$this);
+
+        
         foreach ( $this->dbh->query($sql) as $myrow ) {
 
             if (!isset($this->values[$myrow['name']])) {
@@ -69,13 +78,17 @@ class Config
         $sql = "LOCK TABLES config WRITE";
 
         $this->dbh->query($sql);
+
+        $config = $this->values;
+
+
         foreach ($this->original_config as $name=>$value) {
 
 
 
-            if (!isset($this->config->values[$name])) {
+            if (!isset($this->values[$name])) {
 
-                $sql = "DELETE from config WHERE name = ':name'";
+                $sql = "DELETE from config WHERE name = :name";
 
                 $statement = $this->dbh->prepare($sql);
 
@@ -85,29 +98,33 @@ class Config
                 $statement->execute();
 
             } else {
+
                 if ($this->original_config[$name] != $config[$name]) {
 
                     if (is_array($config[$name])) {
 
                         //Delete all exists config values and replace them with the new ones;
 
-                        $sql = "DELETE from config WHERE name = ':name'";
-
+                        $sql = "DELETE from config WHERE name = :name";
+                        
                         $statement = $this->dbh->prepare($sql);
                         $name = filter_var($name,FILTER_SANITIZE_STRING);
-                        $statement->bindParam(":name",$name);
-                        $statement->execute();
 
+                        $statement->bindParam(":name",$name);                       
+                        $statement->execute();
 
                         foreach ($config[$name] as $value) {
                             if (is_array($value)) {
                                 $value = implode(",", $value);
                             }
-                            $sql = "INSERT INTO config VALUES('',':name',':value')";
-
+                            $sql = "INSERT INTO config VALUES('',:name,:value,'')";
+                           
                             $statement = $this->dbh->prepare($sql);
-                            $statement->bindParam(":name",filter_var($name,FILTER_SANITIZE_STRING));
-                            $statement->bindParam(":value",filter_var($value,FILTER_SANITIZE_STRING));
+                            $name = filter_var($name,FILTER_SANITIZE_STRING);
+                            $statement->bindParam(":name",$name);
+
+                            $value = filter_var($value,FILTER_SANITIZE_STRING);
+                            $statement->bindParam(":value",$value);
                             $statement->execute();
                         }
 
@@ -116,7 +133,7 @@ class Config
                         if (is_array($config[$name])) {
                             $config[$name] = implode(",", $config[$name]);
                         }
-                        $sql = "UPDATE config SET value = ':newname' WHERE name = ':name'";
+                        $sql = "UPDATE config SET value = :newname WHERE name = :name";
                         $statement =$this->dbh->prepare($sql);
                         $statement->bindParam(":newname",$config[$name]);
                         $statement->bindParam(":name",$name);
@@ -130,13 +147,19 @@ class Config
 
         }
 
+
+
         foreach ($this->values as $name=>$value) {
+
             if (!isset($this->original_config[$name])) {
+
+
                 if (is_array($config[$name])) {
 
                     //Delete all exists config values and replace them with the new ones;
 
-                    $sql = "DELETE from config WHERE name = ':name'";
+                    $sql = "DELETE from config WHERE name = :name";
+
                     $statement = $this->dbh->prepare($sql);
                     $statement->bindParam(":name",filter_var($name,FILTER_SANITIZE_STRING));
                     $statement->execute();
@@ -151,13 +174,14 @@ class Config
                     }
                 } else {
                     $sql = "INSERT into config VALUES('',:name,:configvalue)";
+                    
 
                     $statement = $this->dbh->prepare($sql);
                     $statement->bindParam(":name",filter_var($name,FILTER_SANITIZE_STRING));
                     $statement->bindParam(":configvalue",$config[$name]);
                     $statement->execute();
                 }
-        }
+            }
         }
 
         $sql = "UNLOCK TABLES";

@@ -6,7 +6,7 @@ namespace Application;
 
 class API
 {
-    protected $config; 		//Confif object from Application
+    protected $config; 		//Config object from Application
     protected $dbh;	//PDO object from Application
 
     public function __construct(\PDO $_dbh, $_config)
@@ -22,26 +22,29 @@ class API
     public function bluetooth_scan()
     {
         //Sample output
-        $output = 'Scanning ...
-        00:26:4A:9E:3F:C8	cias-cms13
-        00:1F:F3:B0:F9:68	cias-it06
-        00:1E:52:EF:18:15	cias-cms04
-        00:26:4A:9B:FF:BC	Bradley’s Mac Pro
-        38:0A:94:B1:31:6E	Galaxy Nexus
-        ';
+$output = 'Scanning ...
+00:26:4A:9E:3F:C8	cias-cms13
+00:1F:F3:B0:F9:68	cias-it06
+00:1E:52:EF:18:15	cias-cms04
+00:26:4A:9B:FF:BC	Bradley’s Mac Pro
+38:0A:94:B1:31:6E	Galaxy Nexus
+';
 
         $cmd = 'hcitool scan';
 
         $matches = preg_split('/\n/', $output);
 
+
+
         unset($matches[0]);
         unset($matches[count($matches)]);
+
 
         foreach ($matches as $line) {
 
             $line_split = preg_split('/\t/',$line);
 
-            $devices[] = array("address"=>$line_split[1],"devicename"=>$line_split[2]);
+            $devices[] = array("address"=>str_replace(':', '-', $line_split[0]),"devicename"=>$line_split[1]);
 
         }
 
@@ -77,6 +80,7 @@ class API
     {
         if (isset($this->config->values['users'])) {
 
+
             foreach ($this->config->values['users'] as $user=>$value) {
 
                 $this->config->values['users'][$user] = preg_split('/,/',$value);
@@ -108,9 +112,44 @@ class API
     public function service()
     {
         $this->config->values['service_is_running'] = $_GET['service'];
+
         $this->save_config();
 
         return true;
+    }
+
+    /**
+     * Remove device by Bluetooth Address from database
+     */
+    function removeDevice() {
+        $bluetoothAddress = filter_var($_GET['remove_device'],FILTER_SANITIZE_STRING);
+
+        //Search the array from the bluetooth address
+  
+        foreach ($this->config->values['users'] as $key => $value) {
+            if(stristr($value, $bluetoothAddress)) {
+                unset($this->config->values['users'][$key]);
+            }
+        }
+
+        $this->config->save_config();
+     
+        $this->getConfig();  
+    }
+
+    function addDevice() {
+       
+        $name = filter_var($_GET['name'],FILTER_SANITIZE_STRING);
+        $username = filter_var($_GET['username'],FILTER_SANITIZE_STRING);
+        $avatar = filter_var($_GET['avatar'],FILTER_SANITIZE_STRING);
+        $bluetoothAddress = filter_var($_GET['address'],FILTER_SANITIZE_STRING);
+
+        $this->config->values['users'][] = $username.",".$name.",".$bluetoothAddress.",".$avatar;
+        $this->config->save_config();
+
+
+        $this->getConfig();
+
     }
 
     /**

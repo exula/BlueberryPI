@@ -16,7 +16,17 @@ body {
 		background-repeat: repeat-x;
 	}
 	
-
+	#error {
+		background-color: white;
+		color: black;
+		border: 2px solid red;
+		position: absolute;
+		top: 10px;
+		left: 10px;
+		width: 300px;
+		font-size: 20px;
+		z-index: 1000000;
+	}
 	
 	#header {
 		font-size: 48px;

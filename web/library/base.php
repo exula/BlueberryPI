@@ -1,19 +1,6 @@
 <?php
 
-$env = getenv('APPLICATION_ENVIROMENT');
-
-if ( !$env )
-{
-	$env = "development";
-}
-
-if ( $env == "development" ) 
-{
-	error_reporting(-1);
-	ini_set("display_errors",1);
-	ini_set("display_startup_errors",1);
-}
-
+require_once('../includes/config.php');
 
 set_include_path(
 	implode(PATH_SEPARATOR, array(
@@ -23,20 +10,6 @@ set_include_path(
 	)
 );
 
-error_reporting(-1);
-ini_set("display_errors",1);
-ini_set("display_startup_errors",1);
-
-$db_server = 'localhost';
-$db_username = 'root';
-$db_password = 'root';
-$db_database = 'inoutboard';
-
-
-
-######################################################################################
-# DO NOT EDIT BELOW THIS #############################################################
-######################################################################################
 
 $options = array(
 	PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
@@ -48,10 +21,15 @@ try {
     $dbh = new PDO("mysql:host=$db_server;dbname=$db_database", $db_username, $db_password,$options);
     
 } catch (PDOException $e) {
-    print "Error!: " . $e->getMessage() . "<br/>";
+    header("Content-Type: text/json");
+    echo json_encode(array("error"=>$e->getMessage()));
     die();
+
 }
 
+/**
+ * Autoload Classes as needed
+ */
 function autoload($className)
 {
 
@@ -75,6 +53,7 @@ function autoload($className)
 
 spl_autoload_register('autoload');
 
+// Get the config for the system
 $config = new Application\Config($dbh);
 
 /**

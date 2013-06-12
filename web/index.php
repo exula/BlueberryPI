@@ -2,13 +2,15 @@
 <head>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 	<title>CIASTech In/Out Board</title>
-	
-
 
 	<script src="/js/jquery-1.9.1.min.js"></script>
 	<script src="/js/timeago.js" type="text/javascript"></script>
 	<link rel="stylesheet" type="text/css" href="/css/style.css">
 	<script>
+
+
+		var apiKey='aa625902eebedb7cf4fe100ada98996e';
+
 
 		function create_user(data) {
 
@@ -45,14 +47,33 @@
 
 		}
 
-		origstatus = '';
 
+		function error_display(errorMessage) {
+			$('#error').show();
+			$('#error').html("<h2>ERROR</h2>"+errorMessage+"</br><br/>");
+
+		}
+
+		function error_hide(errorMessage) {
+			$('#error').hide();
+		}
+
+
+		origstatus = '';
 		function refresh_status() {
 			$.ajax({
 			  url: "/api/",
-			  data: "users=true&key=aa625902eebedb7cf4fe100ada98996e",
+			  data: "users=true&key="+apiKey,
 			  success: function(data) {
 				
+			  	if( typeof data.error != "undefined" ) {
+				
+					error_display(data.error);
+					return false;			  		
+			  	} else {
+			  		error_hide();
+			  	}
+
 				if(origstatus == data ) {
 					return false;
 				} else {
@@ -88,6 +109,7 @@
 	
 </head>
 <body id="content" onload="">
+	<div id='error' style='display: none'></div>
 	<div id="main">
 		<div id="header">
 			<strong>ciastech</strong><br/>

@@ -12,19 +12,22 @@ require_once '../library/base.php';
 header("Content-Type: text/json");
 
 if ( ! isset($_GET['key']) || $_GET['key'] != $config->values['apikey'] ) {
-    die('API KEY IS NOT SET OR NOT CORRECT');
+    echo json_encode(array("error"=>"API Key is incorrect"));
+    return false;
 } else {
 
 }
 
-
+//Map a GET action type a function in the API class
 $arrayMap = array(
     "bluetooth_scan"=>"bluetooth_scan",
     "service_should_run"=>"serviceShouldRun",
     "config"=>"getConfig",
     "service"=>"service",
     "update"=>"updateDeviceStatus",
-    "users"=>"getUserDevices"
+    "users"=>"getUserDevices",
+    "remove_device"=>"removeDevice",
+    "add_device"=>"addDevice"
 );
 
 
