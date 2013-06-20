@@ -5,12 +5,10 @@
 
 	<script src="/js/jquery-1.9.1.min.js"></script>
 	<script src="/js/timeago.js" type="text/javascript"></script>
+	<script src='/js/blueberrypi.config.js' type="text/javascript"></script>
 	<link rel="stylesheet" type="text/css" href="/css/style.css">
+
 	<script>
-
-
-		var apiKey='aa625902eebedb7cf4fe100ada98996e';
-
 
 		function create_user(data) {
 

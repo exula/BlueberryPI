@@ -212,36 +212,43 @@ $output = 'Scanning ...
         if (!is_array($this->config->values['users'])) {
             $this->config->values['users'] = array($this->config->values['users']);
         }
+    
+        if(!empty($this->config->values['users'])) {
+            foreach ($this->config->values['users'] as $u) {
 
-        foreach ($this->config->values['users'] as $u) {
+                $matches = preg_split('/,/',$u);
 
-            $matches = preg_split('/,/',$u);
+                $username = $matches[0];
 
-            $username = $matches[0];
+                $sql = "SELECT * from bluetooth WHERE username = :username ORDER by id DESC LIMIT 1";
 
-            $sql = "SELECT * from bluetooth WHERE username = :username ORDER by id DESC LIMIT 1";
+                $statement = $this->dbh->prepare($sql);
+                $statement->bindParam(":username",$username);
+                $statement->execute();
 
-            $statement = $this->dbh->prepare($sql);
-            $statement->bindParam(":username",$username);
-            $statement->execute();
+                $myrow = $statement->fetch();
 
-            $myrow = $statement->fetch();
+                if (empty($myrow)) {
+                    $myrow = array();
+                    $myrow['status'] = 'out';
+                    $myrow['timestamp'] = time();
+                }
 
-            if (empty($myrow)) {
-                $myrow = array();
-                $myrow['status'] = 'out';
-                $myrow['timestamp'] = time();
+                $returnarr['users'][$username]['username'] = $username;
+                $returnarr['users'][$username]['status'] = $myrow['status'];
+                $returnarr['users'][$username]['lastseen'] = date("c",$myrow['timestamp']);
+                $returnarr['users'][$username]['bluetooth'] = $matches[2];
+                $returnarr['users'][$username]['name'] = $matches[1];
+                $returnarr['users'][$username]['avatar'] = $matches[3];
+
             }
-
-            $returnarr['users'][$username]['username'] = $username;
-            $returnarr['users'][$username]['status'] = $myrow['status'];
-            $returnarr['users'][$username]['lastseen'] = date("c",$myrow['timestamp']);
-            $returnarr['users'][$username]['bluetooth'] = $matches[2];
-            $returnarr['users'][$username]['name'] = $matches[1];
-            $returnarr['users'][$username]['avatar'] = $matches[3];
-
-         }
-
+        
+        } else {
+            
+            $returnarr = array("error"=>"No Devices are setup!");
+            $returnarr['users'] = array("");
+        }
+      
          $returnarr['userlist'] = array_keys($returnarr['users']);
          $returnarr['service_should_run'] = $this->config->values['service_should_run'];
 

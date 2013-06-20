@@ -26,7 +26,6 @@ try {
     die();
 
 }
-
 /**
  * Autoload Classes as needed
  */
