@@ -59,3 +59,22 @@ If you want always keep the software up-to-date lets go ahead and deply this usi
 	sudo rm -rf /var/www
 	sudo ln -s web /var/www
 	sudo chown www-data:www-data web
+
+Next we need to setup our MySQL database
+
+    cd helpers
+    mysql -u root -p < bluetoothtable.sql
+
+At this point you have a blank version of the system, but the API keys need to fixed in some scripts.
+We need to find the API key
+    http://<address of your pi>/admin/
+
+copy and paste the 'Current API Key';
+
+That needs to updated in the following files
+    service/bluetooth_proximity/proximity_ping.php
+
+Verify that the API key is correct in
+
+   web/js/blueberrypi.config.js
+
