@@ -19,14 +19,9 @@ CREATE TABLE IF NOT EXISTS `config` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
-LOCK TABLES `config` WRITE;
-/*!40000 ALTER TABLE `config` DISABLE KEYS */;
 
 INSERT INTO `config` (`id`, `name`, `value`)
 VALUES
   (16,'service_is_running','true'),
   (17,'service_should_run','1')
 
-
-/*!40000 ALTER TABLE `config` ENABLE KEYS */;
-UNLOCK TABLES;

@@ -41,7 +41,7 @@ With these assumptions the following the installation is fairly easy.
 
 First install the required packages web server packages
 
-    sudo apt-get -y install apache2 php5 php5-cli libapache2-mod-php5 mysql-server
+    sudo apt-get -y install php5 php5-mysql php5-cli libapache2-mod-php5 mysql-server apache2 
 
 Next install the bluetooth packages
 
@@ -55,4 +55,7 @@ If you want always keep the software up-to-date lets go ahead and deply this usi
 
 	cd ~
 	git clone https://github.com/exula/BlueberryPI.git
-
+	cd BlueberryPI
+	sudo rm -rf /var/www
+	sudo ln -s web /var/www
+	sudo chown www-data:www-data web
