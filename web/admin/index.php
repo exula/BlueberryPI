@@ -152,6 +152,9 @@ include('../library/base.php');
 
   	function addDevice() {
 
+  		if( $('#addNewDeviceForm').valid() == false) {
+  			return false;
+  		}
   		
   		name = $('#addDevice_name')[0].value;
   		username = $('#addDevice_username')[0].value;
@@ -294,7 +297,7 @@ include('../library/base.php');
 	 						<select id='addNewDeviceSelect' name='addNewDeviceSelect' class='required'>
 								<option value='' >Select Device...</option>
 							</select><br/><br/>
-							<button onClick='addDevice(); return false;'>Add User to the Board</button>
+							<button onClick='return addDevice(); return false;'>Add User to the Board</button>
 						</form>
 					</fieldset>
 					<br/>

@@ -42,7 +42,7 @@ class Config
     {
         //Get all the config values from the database
         //Every row in the database is a config value, items with the same name are array config values
-        $sql = "SELECT * from config";
+        $sql = "SELECT * from config ORDER by priority DESC";
 
         //Create a config array. For items that have a single entry in the config table they are string values
         //Multiple items of a config name turn into an array

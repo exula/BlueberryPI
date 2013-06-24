@@ -165,3 +165,7 @@ body {
 		font-size: 82px;
 		margin-left: 10px;
 	}
+
+	a {
+		color: #ccc;
+	}

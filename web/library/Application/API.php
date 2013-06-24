@@ -104,9 +104,9 @@ class API
      */
     public function getConfig()
     {
+        
         if (isset($this->config->values['users'])) {
-
-
+           
             foreach ($this->config->values['users'] as $user=>$value) {
 
                 $this->config->values['users'][$user] = preg_split('/,/',$value);
@@ -127,7 +127,7 @@ class API
 
         unset($this->config->values['apikey']);
         echo json_encode($this->config->values);
-
+        $this->config->values['scanMoreOften'] = time()+60;
         return true;
     }
 
