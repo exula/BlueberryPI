@@ -28,7 +28,8 @@ $arrayMap = array(
     "users"=>"getUserDevices",
     "remove_device"=>"removeDevice",
     "add_device"=>"addDevice",
-    "frontEndConfig"=>"frontEndConfig"
+    "frontEndConfig"=>"frontEndConfig",
+    "hcitool"=>"hcitoolScan"
 );
 
 

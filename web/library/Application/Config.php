@@ -7,7 +7,7 @@ class Config
 {
     protected $dbh;
 
-    public $mustBeArray = array('users');
+    public $mustBeArray = array('users','hcitoolscan');
 
     public function __construct($_dbh)
     {
@@ -191,15 +191,18 @@ var apiKey='".$this->values['apikey']."';\n";
                     $sql = "DELETE from config WHERE name = :name";
 
                     $statement = $this->dbh->prepare($sql);
-                    $statement->bindParam(":name",filter_var($name,FILTER_SANITIZE_STRING));
+                    $name = filter_var($name,FILTER_SANITIZE_STRING);
+                    $statement->bindParam(":name",$name);
                     $statement->execute();
 
                     foreach ($config[$name] as $value) {
-                        $sql = "INSERT INTO config VALUES('',:name,:value)";
+                        $sql = "INSERT INTO config VALUES('',:name,:value,'1')";
 
                         $statement = $this->dbh->prepare($sql);
-                        $statement->bindParam(':name',filter_var($name,FILTER_SANITIZE_STRING));
-                        $statement->bindParam(':value',filter_var($value,FILTER_SANITIZE_STRING));
+                        $name = filter_var($name,FILTER_SANITIZE_STRING);
+                        $value = filter_var($value,FILTER_SANITIZE_STRING);
+                        $statement->bindParam(':name',$name);
+                        $statement->bindParam(':value',$value);
                         $statement->execute();
                     }
                 } else {

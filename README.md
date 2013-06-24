@@ -38,28 +38,20 @@ I am making a few assumptions in there instructions.
 ** I have noticed that some dongles will work without Pairing your devices, or dongles will work without Pairing, as of right now this version of BlueberryPi only works nicely with dongles that don't require a pairing.
 
 With these assumptions the following the installation is fairly easy.
+ 
+First install the required packages (This will take a long time.. go get some coffee!)
 
-First install the required packages web server packages
+    sudo apt-get -y install php5 php5-mysql php5-cli libapache2-mod-php5 mysql-server apache2 unclutter bluez xscreensaver
 
-    sudo apt-get -y install php5 php5-mysql php5-cli libapache2-mod-php5 mysql-server apache2 
 
-Next install the bluetooth packages
-
-	sudo apt-get -y install bluez
-
-I choose to use Chromium for my installs, you can really use whatever browser you want.
-
-	sudo apt-get -y install chromium
-
-If you want always keep the software up-to-date lets go ahead and deply this using git
+If you want always keep the software up-to-date lets go ahead and deploy this using git
 
 	cd ~
 	git clone https://github.com/exula/BlueberryPI.git
 	cd BlueberryPI
 	sudo rm -rf /var/www
 	sudo ln -s web /var/www
-	sudo chown www-data:www-data web
-
+	
 Next we need to setup our MySQL database
 
     cd helpers
@@ -77,4 +69,19 @@ That needs to updated in the following files
 Verify that the API key is correct in
 
    web/js/blueberrypi.config.js
+ 
+
+At this point there are two scrips that need to run.
+
+The first script is the backend service script. This runs the scanning for new devices and pings existing devices to see if they are in range.
+The second script is used to set up the frontend display for a Kiosk.
+
+1. service/bluetooth_proximity/run_proximity.sh
+2. service/start_display.sh
+
+From the 'service' directory run the following. On the Wheezy install this will run these scripts once X11
+	sudo cp autostart /etc/xdg/openbox/autostart
+
+
+
 

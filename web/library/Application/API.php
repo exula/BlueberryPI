@@ -7,7 +7,7 @@ namespace Application;
 class API
 {
     protected $config; 		//Config object from Application
-    protected $dbh;	//PDO object from Application
+    protected $dbh;     	//PDO object from Application
 
     public function __construct(\PDO $_dbh, $_config)
     {
@@ -21,31 +21,16 @@ class API
      */
     public function bluetooth_scan()
     {
-        //Sample output
-$output = 'Scanning ...
-00:26:4A:9E:3F:C8	cias-cms13
-00:1F:F3:B0:F9:68	cias-it06
-00:1E:52:EF:18:15	cias-cms04
-00:26:4A:9B:FF:BC	Bradley’s Mac Pro
-38:0A:94:B1:31:6E	Galaxy Nexus
-';
+        $devices = array();
+        
+        if(!empty($this->config->values['hcitoolscan'])) {   
+            foreach ($this->config->values['hcitoolscan'] as $device) {
 
-        $cmd = 'hcitool scan';
-
-        $matches = preg_split('/\n/', $output);
-
-
-
-        unset($matches[0]);
-        unset($matches[count($matches)]);
-
-
-        foreach ($matches as $line) {
-
-            $line_split = preg_split('/\t/',$line);
-
-            $devices[] = array("address"=>str_replace(':', '-', $line_split[0]),"devicename"=>$line_split[1]);
-
+                $line_split = preg_split('/,/',$device);
+                if($device[2] < time() ) {
+                    $devices[] = array("address"=>str_replace(':', '-', $line_split[0]),"devicename"=>$line_split[1]);
+                }
+            }
         }
 
         echo json_encode($devices);
@@ -53,14 +38,31 @@ $output = 'Scanning ...
         return true;
     }
 
+    /**
+     * HCITOOL Scan results from the service
+     * @return bool true
+     */
+    function hcitoolScan() {
+
+        $devices = json_decode($_GET['devices'],TRUE);
+
+        foreach($devices as $key=>$value) {
+            $devices[$key]['expires'] = time()+240;
+        }
+
+        $this->config->values['hcitoolscan'] = $devices;
+      
+
+        $this->config->save_config();
+
+    }
 
     /**
      * Update config with frontend options
      * @return bool true
      */
     function frontEndConfig() {
-        
-        print_r($_POST);
+    
 
         $heading = filter_var($_GET['heading'],FILTER_SANITIZE_STRING);
         $subheading = filter_var($_GET['subheading'],FILTER_SANITIZE_STRING);
@@ -171,7 +173,6 @@ $output = 'Scanning ...
         $this->config->values['users'][] = $username.",".$name.",".$bluetoothAddress.",".$avatar;
         $this->config->save_config();
 
-
         $this->getConfig();
 
     }
@@ -246,9 +247,9 @@ $output = 'Scanning ...
         } else {
             
             $returnarr = array("error"=>"No Devices are setup!");
-            $returnarr['users'] = array("");
+            $returnarr['users'] = array();
         }
-      
+        
          $returnarr['userlist'] = array_keys($returnarr['users']);
          $returnarr['service_should_run'] = $this->config->values['service_should_run'];
 
