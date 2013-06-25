@@ -80,7 +80,8 @@ The second script is used to set up the frontend display for a Kiosk.
 2. service/start_display.sh
 
 From the 'service' directory run the following. On the Wheezy install this will run these scripts once X11
-	sudo cp autostart /etc/xdg/openbox/autostart
+	sudo cp dmrc /home/pi/.dmrc
+	sudo cp autostart home/pi/.config/openbox/autostart
 
 
 

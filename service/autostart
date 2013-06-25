@@ -1,0 +1,4 @@
+#Start BlueberryPI services
+
+/home/pi/BlueberryPI/service/start_display.sh &
+/home/pi/BlueberryPI/service/bluetooth_proximity/run_proximity.sh &
