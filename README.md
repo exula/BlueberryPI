@@ -17,15 +17,6 @@ In the future I will make the development enviroment fake Bluetooth better so yo
  will start your development enviroment and you can get to it at the frontend at http://localhost:8080/ and the admin at http://localhost:8080/admin 
 
 
-
- CIAS DATA
- ========= Temporary
-| 294 | users              | bjcpgd,Brad Coudriet,38:0A:94:B1:31:6E,https://request.cias.rit.edu/avatar.php?username=bjcpgd |
-| 291 | users              | jpspgd,Jay Sullivan,0C:71:5D:FC:B7:31,https://request.cias.rit.edu/avatar.php?username=jpspgd  |
-| 290 | users              | rsfpgd,Robert Fleck,40:B3:95:6F:98:9F,https://request.cias.rit.edu/avatar.php?username=rsfpgd  |
-| 313 | users              | rrhpph,Rob Henderson,54:26:96:35:F6:A4,https://request.cias.rit.edu/avatar.php?username=rrhpph 
-
-
 Installation
 =============
 
@@ -82,6 +73,10 @@ The second script is used to set up the frontend display for a Kiosk.
 From the 'service' directory run the following. On the Wheezy install this will run these scripts once X11
 	sudo cp dmrc /home/pi/.dmrc
 	sudo cp autostart home/pi/.config/openbox/autostart
+
+
+At this point you should be able to restart your RaspberyPI and have a fullscreen Midori window with the app.
+You will have to go to the admin page and add devices.
 
 
 
