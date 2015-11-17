@@ -1,6 +1,6 @@
 #!/bin/bash
-cd /home/pi/BlueberryPI/service/bluetooth_proximity/
-/etc/init.d/bluetooth restart
+cd /opt/BlueberryPI/service/bluetooth_proximity/
+#/etc/init.d/bluetooth restart
 while [ true ]
 do
 

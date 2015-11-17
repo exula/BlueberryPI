@@ -54,7 +54,7 @@ if($users['service_should_run'] == 0) {
 }
 
 $z = 1;
-$sleep = 1;
+$sleep = 3;
 $holding_array = array();
 
 while(true) {
@@ -67,12 +67,13 @@ while(true) {
 			
 			$a = str_replace('-',':',$users['users'][$user]['bluetooth']);
 			$u = $user;
-			$cmd = "sudo l2ping -s 1 -c 2 -t 2 $a > /dev/null  ; echo $?";
+			$cmd = "sudo hcitool name $a ";
+			//$cmd = "sudo l2ping -s 1 -c 4 -t 3 $a > /dev/null  ; echo $?";
 			//echo $cmd."\n";
 			$ret = exec($cmd);
-			
-
-			if($ret == 0) {
+			echo $ret;	
+			if(!empty($ret)) {
+			//if($ret == 0) {
 				if(!isset($holding_array[$u]) || $holding_array[$u] == 'out') {
 					//Update the server
 					$url = $URL.'?update=true&username='.$u.'&status=in&bt='.$a.'&key='.$apikey;
