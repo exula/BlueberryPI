@@ -68,10 +68,9 @@ while(true) {
 			$a = str_replace('-',':',$users['users'][$user]['bluetooth']);
 			$u = $user;
 			$cmd = "sudo hcitool name $a ";
-			//$cmd = "sudo l2ping -s 1 -c 4 -t 3 $a > /dev/null  ; echo $?";
 			//echo $cmd."\n";
 			$ret = exec($cmd);
-			echo $ret;	
+			
 			if(!empty($ret)) {
 			//if($ret == 0) {
 				if(!isset($holding_array[$u]) || $holding_array[$u] == 'out') {

@@ -160,8 +160,10 @@ include('../library/base.php');
   		username = $('#addDevice_username')[0].value;
   		avatar = $('#addDevice_avatar')[0].value;
   		address = $('#addNewDeviceSelect')[0].value;
+		addressText = $('#addNewDeviceText')[0].value;
 
-  		$.ajax('/api/?key='+apikey+"&add_device=true&name="+name+"&username="+username+"&avatar="+avatar+"&address="+address).done(function(data){
+
+  		$.ajax('/api/?key='+apikey+"&add_device=true&name="+name+"&username="+username+"&avatar="+avatar+"&address="+address+"&addressText="+addressText).done(function(data){
   			
   			update_users(data);
   			endAddDevice();
@@ -294,9 +296,12 @@ include('../library/base.php');
 							<input type='text' id='addDevice_username' name='addDevice_username' class='required'><br/><br/>
 							<label>Avatar</label><br/>
 							<input type='text' id='addDevice_avatar' name='addDevice_avatar' class='required'><br/><br/>
-	 						<select id='addNewDeviceSelect' name='addNewDeviceSelect' class='required'>
+	 						<select id='addNewDeviceSelect' name='addNewDeviceSelect' >
 								<option value='' >Select Device...</option>
-							</select><br/><br/>
+							</select><br/>OR<br/>
+							<label>Input Bluetooth MAC Address</label><br/>
+							<input type="text" id="addNewDeviceText" name="addNewDeviceText">
+							<br/><br/>
 							<button onClick='return addDevice(); return false;'>Add User to the Board</button>
 						</form>
 					</fieldset>

@@ -170,6 +170,11 @@ class API
         $avatar = filter_var($_GET['avatar'],FILTER_SANITIZE_STRING);
         $bluetoothAddress = filter_var($_GET['address'],FILTER_SANITIZE_STRING);
 
+        if(empty($bluetoothAddress))
+        {
+            $bluetoothAddress = filter_var($_GET['addressText'],FILTER_SANITIZE_STRING);
+        }
+
         $this->config->values['users'][] = $username.",".$name.",".$bluetoothAddress.",".$avatar;
         $this->config->save_config();
 
